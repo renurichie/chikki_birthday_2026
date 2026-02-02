@@ -178,8 +178,9 @@ body{
 
 /* Photo Grid/Collage */
 .photo-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
     gap:20px;
     max-width:1400px;
     margin:0 auto;
@@ -195,6 +196,9 @@ body{
     transition:all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     animation:fadeInUp 0.8s ease-out;
     animation-fill-mode:both;
+    width:calc(33.333% - 14px);
+    min-width:280px;
+    max-width:450px;
 }
 
 .photo-item:nth-child(1){animation-delay:0.1s;}
@@ -598,8 +602,11 @@ body{
     .collage-header p{font-size:1.1em;}
     
     .photo-grid{
-        grid-template-columns:1fr;
         gap:15px;
+    }
+    .photo-item{
+        width:100%;
+        max-width:100%;
     }
     
     .photo-item img{height:280px;}
@@ -669,9 +676,10 @@ body{
 <div class="collage-page" id="collagePage">
     <div class="collage-header">
         <h1>🎂 Happy Birthday My Love! 🎂</h1>
-        <p>Click on any memory to relive our beautiful moments together ✨</p>
+        <p>Every picture on this wall tells a story — a core memory of us together 💕</p>
+        <p style="font-size:0.95em; color:#e91e84; margin-top:8px; font-style:italic;">This is our memory wall, and it's only the beginning — we'll keep adding more pictures and stories as we make new memories together 🌸</p>
     </div>
-    
+
     <div class="photo-grid" id="photoGrid">
         <!-- Photos will be generated here -->
     </div>
@@ -681,6 +689,11 @@ body{
 <div id="memoryPages">
     <!-- Memory pages will be generated here -->
 </div>
+
+<!-- Background song for collage page -->
+<audio id="bgMusic" loop>
+    <source src="yemaindonamadi.mp3" type="audio/mp3">
+</audio>
 
 <!-- Audio elements for each memory -->
 <div id="audioElements"></div>
@@ -716,7 +729,7 @@ const memories = [
         preview: 'The light of my life...',
         message: 'Your smile has the power to brighten my darkest days. When you laugh, the whole world lights up. Your happiness is my happiness, and seeing you smile is all I need to feel complete. Never stop smiling, my love.',
         quote: '"Your smile is the key to my heart" 😊💖',
-        song: 'Yedemaina-Sakhi.mp3'
+        song: 'sadanannu.mp3'
     },
     {
         id: 4,
@@ -736,7 +749,7 @@ const memories = [
         preview: 'Our future together...',
         message: 'As we celebrate your birthday today, I want you to know that you are my yesterday, my today, and all of my tomorrows. My love for you grows stronger with each passing day. Here\'s to forever together, creating more beautiful memories, and loving each other through it all.',
         quote: '"I love you not only for what you are, but for what I am when I am with you" 💝',
-        song: 'song5.mp3'
+        song: 'Kalalo Kooda.mp3'
     },
     {
         id: 6,
@@ -747,6 +760,47 @@ const memories = [
         message: 'Our journey to Tirumala together is a core memory I\'ll cherish forever. Standing before my swamy with you, seeking His blessings together, felt like a dream. That day, our faith and love came together. Govinda Govinda! Thank you for everything you have done to me.',
         quote: '"Together we sought His blessings, and together we found forever 🙏✨"',
         song: 'tirumala.mp3'
+    },
+    {
+        id: 7,
+        thumbnail: 'fav.jpeg',
+        image: 'fav.jpeg',
+        title: '📸 Our 1st Picture at Our Home',
+        preview: 'You made me love pictures...',
+        message: 'I was never a fan of taking pictures, but everything changed when you entered my life. For the first time, I felt pretty taking pics with someone. Look at my face in this picture — look how happy I am when I am with you! It\'s your smile that melts me every single time. You brought out a side of me I never knew existed, and now every picture with you is my favorite picture.',
+        quote: '"You made me fall in love with moments I never wanted to capture before" 📸💖',
+        song: 'mila mila.mp3'
+    },
+    {
+        id: 8,
+        thumbnail: 'aasateerinaka.jpeg',
+        image: 'aasateerinaka.jpeg',
+        title: 'Our Little Book of Us 📖',
+        preview: 'Where we started writing our story',
+        message: 'That day at the bookstore was pure magic. We walked in just to browse, but we walked out with something so much more — a little book to write down our memorable days, the days that truly matter to us. It was your idea, and I fell in love with it instantly. A place where we could hold onto every beautiful moment we share together, written in our own words. That bookstore gave us more than just a book — it gave us a tradition, a promise to never let our special days fade away.',
+        quote: '"Some love stories are lived, some are written — ours is both" 📖💕',
+        song: 'Yedemaina-Sakhi.mp3'
+    },
+    {
+        id: 9,
+        thumbnail: 'neeli megamulalo.jpeg',
+        image: 'neeli megamulalo.jpeg',
+        title: 'My Wifey Before the World Knew 💍',
+        preview: 'She chose me forever...',
+        message: 'This is the moment you became my wifey — no mandap, no rituals, no official papers, just your hand on my face and all the love in the world. You didn\'t need a ceremony to claim me as yours. The way you look at me in this picture, the way you hold me — that\'s a promise stronger than any vow. You became my wife the day your heart chose mine, and everything else is just a formality the world needs. I already belong to you, completely.',
+        quote: '"We didn\'t need the world\'s permission to belong to each other" 💍💖',
+        song: 'Neeli Meghamula lo.mp3'
+    }
+    ,
+    {
+        id: 10,
+        thumbnail: 'neeli megamulalo.jpeg',
+        image: 'neeli megamulalo.jpeg',
+        title: 'My Wifey Before the World Knew 💍',
+        preview: 'She chose me forever...',
+        message: 'This is the moment you became my wifey — no mandap, no rituals, no official papers, just your hand on my face and all the love in the world. You didn\'t need a ceremony to claim me as yours. The way you look at me in this picture, the way you hold me — that\'s a promise stronger than any vow. You became my wife the day your heart chose mine, and everything else is just a formality the world needs. I already belong to you, completely.',
+        quote: '"We didn\'t need the world\'s permission to belong to each other" 💍💖',
+        song: 'Neeli Meghamula lo.mp3'
     }
 ];
 
@@ -925,6 +979,7 @@ function startSurprise(){
                 document.getElementById('countdownPage').classList.remove('active');
                 document.getElementById('collagePage').classList.add('active');
                 startCelebration();
+                playBgMusic();
             }, 500);
         }
     }, 1000);
@@ -969,7 +1024,7 @@ function generateMemoryPages(){
                 <div class="message">${memory.message}</div>
                 <div class="quote">${memory.quote}</div>
                 <div class="music-indicator">
-                    🎵 Now Playing: ${memory.title} 🎵
+                    🎵 Now Playing: ${memory.song} 🎵
                 </div>
                 <div class="memory-nav">
                     <button onclick="navigateMemory(${index - 1})" ${prevDisabled}>← Previous</button>
@@ -993,6 +1048,20 @@ function generateAudioElements(){
         audio.innerHTML = `<source src="${memory.song}" type="audio/mpeg">`;
         container.appendChild(audio);
     });
+}
+
+function playBgMusic(){
+    const bg = document.getElementById('bgMusic');
+    if(bg){
+        bg.play().catch(err => console.log('BG music play failed:', err));
+    }
+}
+
+function pauseBgMusic(){
+    const bg = document.getElementById('bgMusic');
+    if(bg){
+        bg.pause();
+    }
 }
 
 function createCrackersBurst(){
@@ -1049,6 +1118,9 @@ function createCrackersBurst(){
 function openMemory(index){
     currentMemoryIndex = index;
 
+    // Pause background music
+    pauseBgMusic();
+
     // Fire crackers burst
     createCrackersBurst();
 
@@ -1086,6 +1158,8 @@ function closeMemory(){
     setTimeout(() => {
         document.getElementById('collagePage').style.transition = 'opacity 0.5s ease-in-out';
         document.getElementById('collagePage').style.opacity = '1';
+        // Resume background music after transition
+        playBgMusic();
     }, 350);
 
     currentMemoryIndex = -1;
