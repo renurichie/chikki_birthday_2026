@@ -718,7 +718,7 @@ const memories = [
         title: '💕 Our First Picture',
         preview: 'Starting of a new phase...',
         message: 'I still remember the 1st time we took this picture together you slipped into my arms like a baby like we knew each other from ages. It was the beginning of a beautiful journey filled with love, laughter, and endless adventures. Every moment since then has been a blessing.',
-        quote: '"Life is either a daring adventure or nothing at all" - And I choose adventure with you! 🌍',
+        quote: '"You fit into my arms like you were always meant to be there — like my heart finally found its home" 🤍',
         song: 'perfect.mp3'
     },
     {
@@ -726,9 +726,9 @@ const memories = [
         thumbnail: 'holdinghands.jpeg',
         image: 'holdinghands.jpeg',
         title: '✨ Holding Hands Till Forever',
-        preview: 'The light of my life...',
-        message: 'Your smile has the power to brighten my darkest days. When you laugh, the whole world lights up. Your happiness is my happiness, and seeing you smile is all I need to feel complete. Never stop smiling, my love.',
-        quote: '"Your smile is the key to my heart" 😊💖',
+        preview: 'My forever begins here...',
+        message: 'Holding your hand and walking beside you feels like I\'ve achieved the last thing in the world. Like there\'s nothing left to chase, nothing left to find — because everything I ever needed is right here, intertwined with my fingers. The world could offer me anything, but nothing would ever come close to the feeling of your hand in mine.',
+        quote: '"With your hand in mine, I\'ve already won at life" 🤝💖',
         song: 'sadanannu.mp3'
     },
     {
@@ -736,9 +736,9 @@ const memories = [
         thumbnail: 'pondy.jpeg',
         image: 'pondy.jpeg',
         title: '🎈 Our 1st Trip Together',
-        preview: 'Making memories...',
-        message: 'Every adventure with you feels like a dream come true. Whether we\'re exploring new places or just walking hand in hand, you make every moment magical. With you, even the ordinary becomes extraordinary.',
-        quote: '"The best things in life are the people we love, the places we\'ve been, and the memories we\'ve made" 🎉',
+        preview: 'An emotional roller coaster...',
+        message: 'It was our first trip together — filled with arguments, tears, happiness, and everything in between. We visited your Sivayya, and it turned into an emotional roller coaster I\'ll never forget. But looking back, I think that trip strengthened our bond more than anything else. We didn\'t just travel to a new place — we traveled deeper into each other\'s hearts.',
+        quote: '"The trips that test us are the ones that bring us closer" 🚗💕',
         song: 'Tere_Bina.mp3'
     },
     {
@@ -746,8 +746,8 @@ const memories = [
         thumbnail: 'Fav togeather.PNG',
         image: 'Fav togeather.PNG',
         title: '❤️ Forever and Always',
-        preview: 'Our future together...',
-        message: 'As we celebrate your birthday today, I want you to know that you are my yesterday, my today, and all of my tomorrows. My love for you grows stronger with each passing day. Here\'s to forever together, creating more beautiful memories, and loving each other through it all.',
+        preview: 'One of our best pictures...',
+        message: 'This is one of the best pictures of us — and I can\'t forget the effort you put into making it perfect. As we celebrate your birthday today, I want you to know that you are my yesterday, my today, and all of my tomorrows. My love for you grows stronger with each passing day. Here\'s to forever together, creating more beautiful memories, and loving each other through it all.',
         quote: '"I love you not only for what you are, but for what I am when I am with you" 💝',
         song: 'Kalalo Kooda.mp3'
     },
@@ -765,7 +765,7 @@ const memories = [
         id: 7,
         thumbnail: 'fav.jpeg',
         image: 'fav.jpeg',
-        title: '📸 Our 1st Picture at Our Home',
+        title: 'Only love, no Hate',
         preview: 'You made me love pictures...',
         message: 'I was never a fan of taking pictures, but everything changed when you entered my life. For the first time, I felt pretty taking pics with someone. Look at my face in this picture — look how happy I am when I am with you! It\'s your smile that melts me every single time. You brought out a side of me I never knew existed, and now every picture with you is my favorite picture.',
         quote: '"You made me fall in love with moments I never wanted to capture before" 📸💖',
@@ -787,7 +787,7 @@ const memories = [
         image: 'neeli megamulalo.jpeg',
         title: 'My Wifey Before the World Knew 💍',
         preview: 'She chose me forever...',
-        message: 'This is the moment you became my wifey — no mandap, no rituals, no official papers, just your hand on my face and all the love in the world. You didn\'t need a ceremony to claim me as yours. The way you look at me in this picture, the way you hold me — that\'s a promise stronger than any vow. You became my wife the day your heart chose mine, and everything else is just a formality the world needs. I already belong to you, completely.',
+        message: 'This is the moment you became my wifey — no mandapam, no bajantrilu , no rituals, no official papers, just your hand on my face and all the love in the world. You didn\'t need a ceremony to claim me as yours. The way you look at me in this picture, the way you hold me — that\'s a promise stronger than any vow. You became my wife the day your heart chose mine, and everything else is just a formality the world needs. I already belong to you, completely.',
         quote: '"We didn\'t need the world\'s permission to belong to each other" 💍💖',
         song: 'Neeli Meghamula lo.mp3'
     }
@@ -799,7 +799,7 @@ let currentAudio = null;
 let celebrationStarted = false;
 let interactionStage = 0;
 let catchAttempts = 0;
-let maxAttempts = 10; // Number of times button runs away before allowing click
+let maxAttempts = 6; // Number of times button runs away before allowing click
 
 // Initialize
 function init(){
@@ -857,6 +857,7 @@ function tryToCatch(){
             "Not quite! Keep going! 💕",
             "Almost got it! 🎯",
             "One more time! You can do it! 💪",
+            "Come on.. you got this!😇",
             "Last chance... or is it? 😈"
         ];
         
@@ -1111,8 +1112,9 @@ function openMemory(index){
     // Pause background music
     pauseBgMusic();
 
-    // Fire crackers burst
+    // Fire crackers burst and start falling hearts for 10s
     createCrackersBurst();
+    startSlideHearts();
 
     // Smooth fade out collage
     document.getElementById('collagePage').style.transition = 'opacity 0.5s ease-in-out';
@@ -1142,7 +1144,8 @@ function closeMemory(){
         }, 400);
     }
 
-    // Stop current song
+    // Stop slide hearts and current song
+    stopSlideHearts();
     stopAllSongs();
 
     setTimeout(() => {
@@ -1169,8 +1172,9 @@ function navigateMemory(newIndex){
         oldPage.style.opacity = '';
         oldPage.style.transition = '';
 
-        // Fire crackers for the new slide
+        // Fire crackers and hearts for the new slide
         createCrackersBurst();
+        startSlideHearts();
 
         // Show new page
         currentMemoryIndex = newIndex;
@@ -1212,7 +1216,8 @@ function startCelebration(){
     createSparkles();
     createBalloons();
     
-    setInterval(createConfetti, 3000);
+    const confettiInterval = setInterval(createConfetti, 3000);
+    setTimeout(() => clearInterval(confettiInterval), 10000);
 }
 
 function createConfetti(){
@@ -1280,6 +1285,17 @@ function createBalloons(){
             setTimeout(() => balloon.remove(), 3500);
         }, i * 200);
     }
+}
+
+let slideHeartsInterval = null;
+function startSlideHearts(){
+    stopSlideHearts();
+    createConfetti();
+    slideHeartsInterval = setInterval(createConfetti, 3000);
+    setTimeout(() => stopSlideHearts(), 10000);
+}
+function stopSlideHearts(){
+    if(slideHeartsInterval){ clearInterval(slideHeartsInterval); slideHeartsInterval = null; }
 }
 
 // Click blast/popper effect
